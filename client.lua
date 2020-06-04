@@ -1,93 +1,77 @@
 Citizen.CreateThread(function()
+	local tempmodel
+	tempmodel = GetHashKey("freight")
+	while not HasModelLoaded(tempmodel) do
+		RequestModel(tempmodel)
+		Citizen.Wait(0)
+	end
+	
+	tempmodel = GetHashKey("freightcar")
+	while not HasModelLoaded(tempmodel) do
+		RequestModel(tempmodel)
+		Citizen.Wait(0)
+	end
+	
+	tempmodel = GetHashKey("freightgrain")
+	while not HasModelLoaded(tempmodel) do
+		RequestModel(tempmodel)
+		Citizen.Wait(0)
+	end
+	
+	tempmodel = GetHashKey("freightcont1")
+	while not HasModelLoaded(tempmodel) do
+		RequestModel(tempmodel)
+		Citizen.Wait(0)
+	end
+	
+	tempmodel = GetHashKey("freightcont2")
+	while not HasModelLoaded(tempmodel) do
+		RequestModel(tempmodel)
+		Citizen.Wait(0)
+	end
+	
+	tempmodel = GetHashKey("freighttrailer")
+	while not HasModelLoaded(tempmodel) do
+		RequestModel(tempmodel)
+		Citizen.Wait(0)
+	end
 
-function LoadTrainModels() -- f*ck your rails, too!
-			tempmodel = GetHashKey("freight")
-			RequestModel(tempmodel)
-			while not HasModelLoaded(tempmodel) do
-				RequestModel(tempmodel)
-				Citizen.Wait(0)
-			end
-			
-			tempmodel = GetHashKey("freightcar")
-			RequestModel(tempmodel)
-			while not HasModelLoaded(tempmodel) do
-				RequestModel(tempmodel)
-				Citizen.Wait(0)
-			end
-			
-			tempmodel = GetHashKey("freightgrain")
-			RequestModel(tempmodel)
-			while not HasModelLoaded(tempmodel) do
-				RequestModel(tempmodel)
-				Citizen.Wait(0)
-			end
-			
-			tempmodel = GetHashKey("freightcont1")
-			RequestModel(tempmodel)
-			while not HasModelLoaded(tempmodel) do
-				RequestModel(tempmodel)
-				Citizen.Wait(0)
-			end
-			
-			tempmodel = GetHashKey("freightcont2")
-			RequestModel(tempmodel)
-			while not HasModelLoaded(tempmodel) do
-				RequestModel(tempmodel)
-				Citizen.Wait(0)
-			end
-			
-			tempmodel = GetHashKey("freighttrailer")
-			RequestModel(tempmodel)
-			while not HasModelLoaded(tempmodel) do
-				RequestModel(tempmodel)
-				Citizen.Wait(0)
-			end
+	tempmodel = GetHashKey("tankercar")
+	while not HasModelLoaded(tempmodel) do
+		RequestModel(tempmodel)
+		Citizen.Wait(0)
+	end
+	
+	tempmodel = GetHashKey("metrotrain")
+	while not HasModelLoaded(tempmodel) do
+		RequestModel(tempmodel)
+		Citizen.Wait(0)
+	end
+	
+	tempmodel = GetHashKey("s_m_m_lsmetro_01")
+	while not HasModelLoaded(tempmodel) do
+		RequestModel(tempmodel)
+		Citizen.Wait(0)
+	end
+	Citizen.Trace("done loading")
+end)
 
-			tempmodel = GetHashKey("tankercar")
-			RequestModel(tempmodel)
-			while not HasModelLoaded(tempmodel) do
-				RequestModel(tempmodel)
-				Citizen.Wait(0)
-			end
-			
-			tempmodel = GetHashKey("metrotrain")
-			RequestModel(tempmodel)
-			while not HasModelLoaded(tempmodel) do
-				RequestModel(tempmodel)
-				Citizen.Wait(0)
-			end
-			
-			tempmodel = GetHashKey("s_m_m_lsmetro_01")
-			RequestModel(tempmodel)
-			while not HasModelLoaded(tempmodel) do
-				RequestModel(tempmodel)
-				Citizen.Wait(0)
-			end
-			
-		
-			
-end
-
-LoadTrainModels()
-
-
-TrainLocations = {
-{2533.0, 2833.0, 38.0},
-{2606.0, 2927.0, 40.0},
-{2463.0, 3872.0, 38.8},
-{1164.0, 6433.0, 32.0},
-{537.0, -1324.1, 29.1},
-{219.1, -2487.7, 6.0}
+local TrainLocations = {
+	{2533.0, 2833.0, 38.0},
+	{2606.0, 2927.0, 40.0},
+	{2463.0, 3872.0, 38.8},
+	{1164.0, 6433.0, 32.0},
+	{537.0, -1324.1, 29.1},
+	{219.1, -2487.7, 6.0}
 }
 
-
 RegisterNetEvent("StartTrain")
-function StartTrain()
+local function StartTrain()
 	Citizen.Trace("a train has arrived") -- whee i must be host, lucky me
-		randomSpawn = math.random(#TrainLocations)
+		local randomSpawn = math.random(#TrainLocations)
 		x,y,z = TrainLocations[randomSpawn][1], TrainLocations[randomSpawn][2], TrainLocations[randomSpawn][3] -- get some random locations for our spawn
 
-	yesorno = math.random(0, 100)
+	local yesorno = math.random(0, 100)
 	if yesorno >= 50 then -- untested, but seems to work /shrug
 		yesorno = true
 	elseif yesorno < 50 then
@@ -103,9 +87,5 @@ function StartTrain()
 	SetEntityAsMissionEntity(Train,true,true) -- dunno if this does anything, just throwing it in for good measure
 	SetEntityAsMissionEntity(MetroTrain,true,true)
 	SetEntityAsMissionEntity(MetroTrain2,true,true)
-	
-	
 end
 AddEventHandler("StartTrain", StartTrain)
-
-end)
