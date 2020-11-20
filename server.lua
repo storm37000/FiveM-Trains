@@ -2,9 +2,6 @@ local trainspawned = false
 local PlayerCount = 0
 local list = {}
 
-RegisterServerEvent("hardcap:playerActivated")
-RegisterServerEvent("playerDropped")
-
 local function ActivateTrain()
 	if (PlayerCount) == 1 and not trainspawned then
 		TriggerClientEvent('StartTrain', GetHostId())
@@ -16,14 +13,14 @@ local function ActivateTrain()
 		end
 	end
 end
---snippet from hardcap to make PlayerCount work
+--snippet from chat to make PlayerCount work
 
 -- yes i know i'm lazy
-AddEventHandler('hardcap:playerActivated', function()
+AddEventHandler('chat:init', function()
   if not list[source] then
     PlayerCount = PlayerCount + 1
 	list[source] = true
-	SetTimeout(15000,ActivateTrain)
+	ActivateTrain()
   end
 end)
 
