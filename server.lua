@@ -1,3 +1,5 @@
+RegisterServerEvent('chat:init')
+
 local trainspawned = false
 local PlayerCount = 0
 local list = {}
