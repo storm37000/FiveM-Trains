@@ -5,12 +5,12 @@ local list = {}
 RegisterServerEvent("hardcap:playerActivated")
 RegisterServerEvent("playerDropped")
 
-local function ActivateTrain ()
+local function ActivateTrain()
 	if (PlayerCount) == 1 and not trainspawned then
 		TriggerClientEvent('StartTrain', GetHostId())
 		trainspawned = true
+		print("Spawning train.")
 	else
-		SetTimeout(15000,ActivateTrain)
 		if (PlayerCount) == 0 then
 			trainspawned = false
 		end
@@ -22,16 +22,15 @@ end
 AddEventHandler('hardcap:playerActivated', function()
   if not list[source] then
     PlayerCount = PlayerCount + 1
-    list[source] = true
-		if (PlayerCount) == 1 then -- new session?
-			SetTimeout(15000,ActivateTrain)
-		end
+	list[source] = true
+	SetTimeout(15000,ActivateTrain)
   end
 end)
 
 AddEventHandler('playerDropped', function()
   if list[source] then
     PlayerCount = PlayerCount - 1
-    list[source] = nil
+	list[source] = nil
+	ActivateTrain()
   end
 end)
